@@ -1,60 +1,78 @@
 {% extends 'base.html' %}
 
 {% block container %}
-    <!-- Page Content -->
-    <div class="container" style="min-height: 80vh;">
+<!-- Page Content -->
+<div class="container" style="min-height: 80vh;">
 
-        <!-- Page Heading/Breadcrumbs -->
-        <h1 class="mt-4 mb-3">Register
-            <small>Form</small>
-        </h1>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item active">Register</li>
-        </ol>
-        <!-- Content Row -->
-        <div class="row">
-            <div class="col-lg-4 mb-4">
-                <form name="sentMessage" id="contactForm" novalidate>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>First Name*</label>
-                            <input type="text" class="form-control" id="first_name" required data-validation-required-message="Please enter your first name.">
-                            <p class="help-block"></p>
-                        </div>
-                    </div>
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">Register
+        <small>Form</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active">Register</li>
+    </ol>
+
+    <!-- For success/fail messages -->
+    <div style="text-align: center; list-style-type: none">
+
+        {% for field, error in form.errors.items %}
+        <!-- {% if field != '__all__' %}{{ field }}{% endif %} -->
+        <div> {{ error | striptags }}</div>
+        {% endfor %}
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+        <div class="col-lg-4 mb-4">
+            <form class="form" method="POST" name="sentMessage" id="contactForm" novalidate>
+                {% csrf_token %}
+                <div class="control-group form-group">
                     <div class="controls">
-                        <label>Last Name*</label>
-                        <input type="text" class="form-control" id="last_name" required data-validation-required-message="Please enter your last name.">
+                        <label>First Name*</label>
+                        <input required type="text" class="form-control" name="first_name" id="first_name" required
+                            data-validation-required-message="Please enter your first name.">
                         <p class="help-block"></p>
                     </div>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Email*</label>
-                            <input type="email" class="form-control" id="email" required data-validation-required-message="Please enter your email.">
-                            <p class="help-block"></p>
-                        </div>
+                </div>
+                <div class="control-group form-group">
+                    <label>Last Name*</label>
+                    <input type="text" class="form-control" name="last_name" id="last_name" required
+                        data-validation-required-message="Please enter your last name.">
+                    <p class="help-block"></p>
+                </div>
+                <div class="control-group form-group">
+                    <div class="controls">
+                        <label>Email*</label>
+                        <input type="email" class="form-control" name="email" id="email" required
+                            data-validation-required-message="Please enter your email.">
+                        <p class="help-block"></p>
                     </div>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Password*</label>
-                            <input type="password" class="form-control" id="password" required data-validation-required-message="Please enter your password.">
-                        </div>
+                </div>
+                <div class="control-group form-group">
+                    <div class="controls">
+                        <label>Password*</label>
+                        <input type="password" class="form-control" name="password1" id="password1" required
+                            data-validation-required-message="Please enter your password.">
                     </div>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Confirm Password*</label>
-                            <input type="password" class="form-control" id="confirm-password" required data-validation-required-message="Please confirm your password.">
-                        </div>
+                </div>
+                <div class="control-group form-group">
+                    <div class="controls">
+                        <label>Confirm Password*</label>
+                        <input type="password" class="form-control" name="password2" id="password2" required
+                            data-validation-required-message="Please confirm your password.">
                     </div>
-                    <div id="success"></div>
-                    <!-- For success/fail messages -->
+                </div>
+
+                <div class="form-group">
                     <button type="submit" class="btn btn-primary" id="login-btn">Register</button>
-                </form>
-            </div>
+                </div>
+
+                <!-- <input type="submit" class="btn btn-primary" id="login-btn" value="Register"> -->
+            </form>
         </div>
-        <!-- /.row -->
-
     </div>
-    <!-- /.container -->
-{% endblock container %}
+    <!-- /.row -->
 
+</div>
+<!-- /.container -->
+{% endblock container %}

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+
 <head>
 
     <meta charset="utf-8">
@@ -20,49 +21,69 @@
 
 <body>
 
-<!-- Navigation -->
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="/">Example Blog</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/posts">Posts</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/auth/login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/auth/register">Register</a>
-                </li>
-            </ul>
+    <!-- Navigation -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">Example Blog</a>
+
+
+
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    {% if not request.user.is_anonymous  %}
+
+                    <div class="navbar-brand" href="/auth/login">
+                        Hi {{ request.user.first_name }}
+                    </div>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/posts">Posts</a>
+                    </li>
+                    {% if request.user.is_anonymous  %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auth/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auth/register">Register</a>
+                    </li>
+
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auth/logout/">logout</a>
+                    </li>
+                    {% endif %}
+
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
-{% block container %}
-{% endblock container %}
+    {% block container %}
+    {% endblock container %}
 
-<!-- Footer -->
-<footer class="py-5 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Gray Space It LTD 2020</p>
-    </div>
-    <!-- /.container -->
-</footer>
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Gray Space It LTD 2020</p>
+        </div>
+        <!-- /.container -->
+    </footer>
 
-<!-- Bootstrap core JavaScript -->
-<script src="{% static  'vendor/jquery/jquery.min.js'%}"></script>
-<script src="{% static  'vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static  'vendor/jquery/jquery.min.js'%}"></script>
+    <script src="{% static  'vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
 
-<!-- Contact form JavaScript -->
-<!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
-<script src="{% static  'js/jqBootstrapValidation.js'%}"></script>
-<script src="{% static  'js/contact_me.js'%}"></script>
+    <!-- Contact form JavaScript -->
+    <!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+    <script src="{% static  'js/jqBootstrapValidation.js'%}"></script>
+    <script src="{% static  'js/contact_me.js'%}"></script>
 
 </body>
 
-</html>"
+</html>
