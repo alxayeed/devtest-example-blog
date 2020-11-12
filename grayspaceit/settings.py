@@ -38,9 +38,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # my apps
     'authentication',
     'posts',
+
+    # installed apps
+    'rest_framework',
 ]
+
+# JWTAuthentication
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
 
 # User substitution
 AUTH_USER_MODEL = 'authentication.User'
