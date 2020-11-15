@@ -1,13 +1,19 @@
 from django.shortcuts import render
-from django.contrib.auth.models import AnonymousUser
-
+import requests
 
 # POSTS VIEW ENDPOINT
+
+
 def posts(request):
-    print(request.user == AnonymousUser)
-    return render(request, 'blog-listing.html')
+    response = requests.get(
+        'https://jsonplaceholder.typicode.com/posts').json()
+    return render(request, 'blog-listing.html', {'response': response})
 
 
 # POST DETAILS VIEW ENDPOINT
-def post_details(request):
-    return render(request, 'blog-post.html')
+def post_details(request, post_id):
+    url = 'https://jsonplaceholder.typicode.com/posts/'+str(post_id)
+    post = requests.get(url).json()
+
+    comments = requests.get(url + '/comments').json()
+    return render(request, 'blog-post.html', {'response': post, 'comments': comments})
