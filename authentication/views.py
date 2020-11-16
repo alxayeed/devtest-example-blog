@@ -43,7 +43,9 @@ def login(request):
 
         else:
             print(user)
-            messages.info(request, 'Username or Password is incorrect')
+            messages.info(
+                request, 'Oops! There is a problem with your email or password.\
+                    Please try again')
 
     return render(request, 'login.html')
 
