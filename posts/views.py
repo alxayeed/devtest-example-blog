@@ -21,7 +21,7 @@ def posts(request):
     if page_number is None:
         response = paginator.page(1)
 
-    # else, get posts of page_number
+    # else, get posts of specific page_number
     else:
         response = paginator.page(page_number)
 
@@ -36,6 +36,7 @@ def post_details(request, post_id):
     url = 'https://jsonplaceholder.typicode.com/posts/'+str(post_id)
     post = requests.get(url).json()
 
+    # if user post a comment
     if request.method == 'POST':
         postId = request.POST.get('postId')
         name = request.POST.get('name')
@@ -46,7 +47,10 @@ def post_details(request, post_id):
         comment = Comment(post_id=postId, name=name, email=email, body=body)
         comment.save()
 
+    # comment by the user from databse
     user_comment = Comment.objects.filter(post_id=post['id'])
+
+    # comment from external api
     comments = requests.get(url + '/comments').json()
 
     return render(request, 'blog-post.html', {'response': post, 'comments': comments, 'user_comment': user_comment})

@@ -4,6 +4,9 @@ from authentication.models import User
 
 
 class RegisterForm(UserCreationForm):
+    '''
+    Form for user registration
+    '''
 
     class Meta:
         model = User
