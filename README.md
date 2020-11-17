@@ -1,8 +1,5 @@
 # Blog Django Example App
 
-
-## Online Courier Service management System
-
 ### About the project
 This Example blog is an assessment Project by GraySpace It. This is a very small yet varsatile Project.
 Because with it's limited requirements, the project has involved different development stacks. 
