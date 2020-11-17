@@ -13,18 +13,16 @@ def register(request):
 
     if request.method == 'POST':
         form = RegisterForm(request.POST)
-        print(form.errors)
 
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('email')
 
             messages.success(
-                request, f'Account Succesfully Created for {username}')
+                request, f'Account Succesfully Created for {username}. Please log in')
             return redirect('login')
 
     context = {'form': form}
-    print('here')
     return render(request, 'register.html', context)
 
 
@@ -32,9 +30,7 @@ def login(request):
     if request.method == "POST":
         email = request.POST.get('email')
         password = request.POST.get('password')
-        print(email, password)
         user = authenticate(request, email=email, password=password)
-        print(user)
 
         if user is not None:
             dj_login(request, user)
@@ -42,15 +38,13 @@ def login(request):
             return redirect('posts')
 
         else:
-            print(user)
             messages.info(
                 request, 'Oops! There is a problem with your email or password.\
-                    Please try again')
+                    Please register or try again')
 
     return render(request, 'login.html')
 
 
 def logout(request):
-    print('Hello')
     dj_logout(request)
     return redirect('login')
