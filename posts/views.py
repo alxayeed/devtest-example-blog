@@ -1,4 +1,7 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.template.loader import render_to_string
 import requests
 from django.core.paginator import Paginator
 from .models import Comment
@@ -29,6 +32,7 @@ def posts(request):
 
 
 # POST DETAILS VIEW ENDPOINT
+# @csrf_exempt
 def post_details(request, post_id):
     '''
     View for details of a post
@@ -42,10 +46,13 @@ def post_details(request, post_id):
         name = request.POST.get('name')
         email = request.POST.get('email')
         body = request.POST.get('body')
+        print(postId)
 
         # save to database
         comment = Comment(post_id=postId, name=name, email=email, body=body)
         comment.save()
+
+    print(request.is_ajax())
 
     # comment by the user from databse
     user_comment = Comment.objects.filter(post_id=post['id'])
@@ -53,4 +60,15 @@ def post_details(request, post_id):
     # comment from external api
     comments = requests.get(url + '/comments').json()
 
-    return render(request, 'blog-post.html', {'response': post, 'comments': comments, 'user_comment': user_comment})
+    context = {
+        'response': post,
+        'comments': comments,
+        'user_comment': user_comment
+    }
+
+    print(request.is_ajax())
+    if request.is_ajax():
+        html = render_to_string('comment.html', context, request=request)
+        return JsonResponse({'form': html})
+
+    return render(request, 'blog-post.html', context)

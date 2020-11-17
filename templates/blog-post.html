@@ -7,7 +7,7 @@
 
   <!-- Page Heading/Breadcrumbs -->
   <h1 class="mt-4 mb-3"> {{ response.title }} </h1>
-  
+
 
 
 
@@ -16,7 +16,7 @@
       <a href="{% url 'posts'%}">Home</a>
     </li>
     <li class="breadcrumb-item active">
-     Post no {{ response.id }} 
+      Post no {{ response.id }}
     </li>
   </ol>
 
@@ -45,81 +45,13 @@
       </blockquote>
       <hr>
 
-      <h3>Comments Section </h3>
-      <hr>
-      <!-- Comments Form -->
-      {% if request.user.is_anonymous  %}
-        <h4>Please Login or Register to add a comment </h4>
-      {% else %}
-          <div class="card my-4">
-        <h5 class="card-header">Leave a Comment:</h5>
-        <div class="card-body">
-          <form method="POST" action=".">
-            {% csrf_token %}
-            <input type="hidden" id="postId" name="postId" value="{{ response.id }}">
-            <input type="hidden" id="name" name="name"
-              value="{{ request.user.first_name }} {{ request.user.last_name }}">
-            <input type="hidden" id="email" name="email" value="{{request.user.email}}">
 
-            <div class="form-group">
-              <textarea class="form-control" rows="3" name="body"></textarea>
-            </div>
+      <div class="main-comment-section">
+        <h3>Comments Section </h3>
+        <hr>
+        <!-- Comments Form -->
+        {% include "comment.html" %}
 
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
-        </div>
-      </div>
-
-      {% endif %}
-       <hr>
-
-
-
-      
-      <!-- Single Comment -->
-
-      <div class="media mb-4">
-
-        <div class="media-body" ba>
-          <!-- User Comment -->
-          {% if user_comment %}
-          <h6>Comment by User </h6>
-          
-          {% for comment in user_comment %}
-          <div style="display: flex; margin-top: 25px;">
-            <div>
-              <img class="ml-3 rounded-circle"  style="height:50px; width:50px; margin-right:10px" src="https://cdn.onlinewebfonts.com/svg/img_568656.png" alt="">
-            </div>
-            <div style="display: flex; flex-direction: column;">
-              <h6 style="margin: auto;">{{ comment.name }}</h6>
-              <p>({{ comment.email }})</p>
-            </div>
-          </div>
-          <p style="background-color: #ff99ff; padding: 10px; border-radius: 25px;">{{ comment.body }}</p>
-          {% endfor %}
-          {% endif %}
-
-          <!-- Incoming Comment -->
-          <h6>Comment from API </h6>
-
-          {% if comments %}
-          {% for comment in comments %}
-
-          <div style="display: flex; margin-top: 25px;">
-            <div>
-              <img class="ml-3 rounded-circle"  style="height:50px; width:50px; margin-right:10px" src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-256.png" alt="">
-            </div>
-            <div style="display: flex; flex-direction: column;">
-              <h6 style="margin: auto;">{{ comment.name }}</h6>
-              <p>({{ comment.email }})</p>
-            </div>
-          </div>
-          <p style="background-color: skyblue; padding: 10px; border-radius: 25px;">{{ comment.body }}</p>
-          {% endfor %}
-          {% else %}
-          <p>No comment yet</p>
-          {% endif %}
-        </div>
       </div>
 
     </div>

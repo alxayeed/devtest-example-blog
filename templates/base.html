@@ -17,6 +17,8 @@
     <!-- Custom styles for this template -->
     <link href="{% static  'css/modern-business.css' %}" rel="stylesheet">
 
+
+
 </head>
 
 <body>
@@ -83,6 +85,31 @@
     <!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
     <script src="{% static  'js/jqBootstrapValidation.js'%}"></script>
     <script src="{% static  'js/contact_me.js'%}"></script>
+
+    <!-- loads AJAX functionality to the templates -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- loads js Cookie plugin to interact with cookies -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js"></script>
+
+
+    <script>
+
+        $(document).on('submit', '.comment-form', function (event) {
+            event.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function (response) {
+                    $('.main-comment-section').html(response['form']);
+                },
+                error: function (rs, e) {
+                    console.log(rs.responseText);
+                }
+            });
+        });
+    </script>
 
 </body>
 
