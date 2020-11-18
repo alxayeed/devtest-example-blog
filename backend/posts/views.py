@@ -28,7 +28,7 @@ def posts(request):
     else:
         response = paginator.page(page_number)
 
-    return render(request, 'blog-listing.html', {'response': response})
+    return render(request, 'build/index.html')
 
 
 # POST DETAILS VIEW ENDPOINT
@@ -52,8 +52,6 @@ def post_details(request, post_id):
         comment = Comment(post_id=postId, name=name, email=email, body=body)
         comment.save()
 
-    print(request.is_ajax())
-
     # comment by the user from databse
     user_comment = Comment.objects.filter(post_id=post['id'])
 
@@ -66,9 +64,8 @@ def post_details(request, post_id):
         'user_comment': user_comment
     }
 
-    print(request.is_ajax())
     if request.is_ajax():
         html = render_to_string('comment.html', context, request=request)
         return JsonResponse({'form': html})
 
-    return render(request, 'blog-post.html', context)
+    return render(request, 'build/index.html', context)
