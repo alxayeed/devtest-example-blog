@@ -1,7 +1,10 @@
 from rest_framework.generics import (
     ListAPIView,
     RetrieveAPIView,
-    CreateAPIView
+    CreateAPIView,
+    UpdateAPIView,
+    DestroyAPIView,
+
 )
 from posts.models import Comment
 from .serializers import CommentSerializer
@@ -26,6 +29,22 @@ class CommentDetailView(RetrieveAPIView):
 class CommentCreateView(CreateAPIView):
     '''
     API View for to add a comment
+    '''
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+
+class CommentUpdateView(UpdateAPIView):
+    '''
+    API View for Update a Comment
+    '''
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+
+class CommentDeleteView(DestroyAPIView):
+    '''
+    API View for to delete a comment
     '''
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
