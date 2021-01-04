@@ -1,7 +1,7 @@
 # Blog Django Example App
 
 ### About the project
-This Example blog is an assessment Project by GraySpace It. This is a very small yet varsatile Project.
+This Example blog is a very small yet varsatile Project.
 Because with it's limited requirements, the project has involved different development stacks. 
 This projects fetches posts , posts details and comment of the post from an external API and displayes them using Django.
 I really enjoyed and wish to continue on this to add more features.
