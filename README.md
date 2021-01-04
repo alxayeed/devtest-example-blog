@@ -1,4 +1,4 @@
-# Blog Django Example App
+# Django Example Blog 
 
 ### About the project
 This Example blog is a very small yet varsatile Project.
