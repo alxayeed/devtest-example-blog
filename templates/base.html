@@ -37,7 +37,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    {% if not request.user.is_anonymous  %}
+                    {% if not request.user.is_anonymous %}
 
                     <div class="navbar-brand" href="/auth/login">
                         Hi {{ request.user.first_name }}
@@ -46,7 +46,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/posts">Posts</a>
                     </li>
-                    {% if request.user.is_anonymous  %}
+                    {% if request.user.is_anonymous %}
 
                     <li class="nav-item">
                         <a class="nav-link" href="/auth/login">Login</a>
